@@ -1,10 +1,16 @@
 
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import RowChauffeur from './RowChauffeur';
 
 
 const TableChauffeur = () => {
-
+  const[data,seteData]=useState([]);
+  useEffect(async () => {
+   await axios.get('http://localhost:5000/chauffeurApi')
+    .then((res)=>seteData(res.data.chauffeur))
+    
+  }, [data]);
   return (
     <table className="w-full w-full">
       <thead >
@@ -17,7 +23,10 @@ const TableChauffeur = () => {
         </tr>
       </thead>
       <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-        <RowChauffeur nom="achraf" prenom ="ettgharssi" email="achraf.ettgharssi" type="docker"/>
+            
+        {data.map((row, index) => (
+          <RowChauffeur key={row._id} id={row._id} nom={row.nom_chauffeur} prenom ={row.prenom_chauffeur} email={row.email_chauffeur} type={row.id_vehicule.nom_vehicule}/>   
+        ))}
       </tbody>
     </table>
   );

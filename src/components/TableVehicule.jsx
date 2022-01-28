@@ -3,15 +3,17 @@ import axios from 'axios';
 import { useEffect,useState } from 'react/cjs/react.development';
 import RowVehicule from './RowVehicule';
 
-const TableVehicule = () => {
+const TableVehicule = ({data,getv}) => {
 
-  const[data,seteData]=useState([]);
-  useEffect(async () => {
-   await axios.get('http://localhost:5000/vehiculeApi')
-    .then((res)=>seteData(res.data.vehicules))
-    .catch(err=>(console.log(err)))
-    
-  }, [data]);
+  // const[data,seteData]=useState([]);
+  // useEffect(async () => {
+  //  await axios.get('http://localhost:5000/vehiculeApi')
+  //   .then((res)=>seteData(res.data.vehicules))
+  //   .catch(err=>(console.log(err)))
+  // }, []);
+
+
+  
 
 // console.log(data[0]);
 
@@ -27,7 +29,7 @@ const TableVehicule = () => {
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {data.map((row, index) => (
-                  <RowVehicule key={row._id} id={row._id} nom={row.nom_vehicule} type={row.type_vehicule} matricule={row.matricule}/>
+                  <RowVehicule  getv={getv} key={row._id} id={row._id} nom={row.nom_vehicule} type={row.type_vehicule} matricule={row.matricule}/>
                 ))}
 
                 </tbody>

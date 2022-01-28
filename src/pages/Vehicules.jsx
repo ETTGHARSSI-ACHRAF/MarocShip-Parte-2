@@ -1,12 +1,27 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import AddVehicule from '../components/AddVehicule';
+import { Dashbord } from '../components/Dashbord';
 import TableVehicule from '../components/TableVehicule';
 
 const Vehicules = () => {
+  const[data,seteData]=useState([]);
+   const getv = () =>{
+    axios.get('http://localhost:5000/vehiculeApi')
+    .then((res)=>seteData(res.data.vehicules))
+    .catch(err=>(console.log(err)))
+  }
+  useEffect( () => {
+   getv();
+  }, []);
   return (
+    <div>
+      <Dashbord/>
+    
     <div className="h-full md:ml-64">
-    <AddVehicule/>
-    <TableVehicule/>
+    <AddVehicule seteData={seteData} getv={getv}/>
+    <TableVehicule getv={getv} data={data}/>
+  </div>
   </div>
   );
 };

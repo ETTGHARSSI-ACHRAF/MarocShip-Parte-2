@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useState} from 'react';
 import { AiFillFolderAdd } from "react-icons/ai";
 
-const AddVehicule = () => {
+const AddVehicule = ({getv}) => {
   const [type, setType] = useState('');
   const [nom, setNom] = useState('');
   const [matricule, setMatricule] = useState('');
@@ -12,11 +12,12 @@ const AddVehicule = () => {
     "nom_vehicule":nom,
     "matricule":matricule
     })
+    getv();
   }
 
   return (
 
-    <form className=" w-full grid grid-cols-1 gap-4 place-content-center h-48">
+    <div className=" w-full grid grid-cols-1 gap-4 place-content-center h-48">
       {/* <div onClick={() => setShow(!show)}>show</div> */}
     <div className="flex flex-wrap  ml-4">
       <div className="w-full md:w-1/4 px-3">
@@ -62,7 +63,7 @@ const AddVehicule = () => {
         </button>
       </div>
     </div>
-  </form>
+  </div>
   );
 };
 

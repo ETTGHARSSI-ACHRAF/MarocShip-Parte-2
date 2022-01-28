@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaSave} from 'react-icons/fa';
 import { AiFillCloseCircle, AiOutlineDelete } from "react-icons/ai";
 import {GrUpdate } from "react-icons/gr";
@@ -7,7 +7,6 @@ import axios from 'axios';
 const RowVehicule = (props) => {
     const [show, setShow] = useState(true);
   const [hiden, setHiden] = useState(false);
-
   const [type, setType] = useState(props.type);
   const [nom, setNom] = useState(props.nom);
   const [matricule, setMatricule] = useState(props.matricule);
@@ -18,7 +17,9 @@ const RowVehicule = (props) => {
     "nom_vehicule":nom,
     "matricule":matricule
       })
-      .then(res=>console.log(res))
+      setShow(true);
+      setHiden(false);
+      props.getv();
   }
 
   const showInput = (e) => {
@@ -33,6 +34,8 @@ const RowVehicule = (props) => {
 
   const drop = (id) =>{
     axios.delete(`http://localhost:5000/vehiculeApi/${id}`)
+    props.getv();
+    
   }
   return (
     <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">

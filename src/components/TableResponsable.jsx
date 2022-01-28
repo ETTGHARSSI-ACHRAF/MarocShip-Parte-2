@@ -1,11 +1,16 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import RowResponsable from './RowResponsable';
 
 
 export const TableResponsable = () => {
 
-  
-
+  const[data,seteData]=useState([]);
+  useEffect(async () => {
+   await axios.get('http://localhost:5000/responsableLivraisonApi')
+    .then((res)=>seteData(res.data.responsablesLivraison))
+    
+  }, [data]);
   return (
     <table className="w-full w-full">
       <thead >
@@ -16,9 +21,11 @@ export const TableResponsable = () => {
           <th className="px-4 py-3 w-1/4">Action</th>
         </tr>
       </thead>
-      <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-        <RowResponsable nom="achraf" prenom ="ettgharssi" email="achraf.ettgharssi"/>
-        <RowResponsable nom="achraf" prenom ="ettgharssi" email="achraf.ettgharssi"/>
+      <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">        
+        {data.map((row, index) => (
+          
+           <RowResponsable key={row._id} id={row._id} nom={row.nom_responsable_livraison} prenom ={row.prenom_responsable_livraison} email={row.email_responsable_livraison}/>
+        ))}
       </tbody>
     </table>
   );

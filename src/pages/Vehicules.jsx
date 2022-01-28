@@ -1,6 +1,5 @@
 import React from 'react';
 import AddVehicule from '../components/AddVehicule';
-import { Dashbord } from '../components/Dashbord';
 import TableVehicule from '../components/TableVehicule';
 
 const Vehicules = () => {

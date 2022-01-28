@@ -1,12 +1,14 @@
 import React from 'react';
+import AddChauffeur from '../components/AddChauffeur';
 import { Dashbord } from '../components/Dashbord';
+import TableChauffeur from '../components/TableChauffeur';
 
 export const Chauffeurs = () => {
   return (
       <div className="h-full md:ml-64">
-
-            <h1 >Chauffeur</h1>
-          </div>
+        <AddChauffeur/>
+        <TableChauffeur/>
+      </div>
 
   );
 };

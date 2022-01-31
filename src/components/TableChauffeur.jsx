@@ -1,16 +1,9 @@
-
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import RowChauffeur from './RowChauffeur';
 
 
-const TableChauffeur = () => {
-  const[data,seteData]=useState([]);
-  useEffect(async () => {
-   await axios.get('http://localhost:5000/chauffeurApi')
-    .then((res)=>seteData(res.data.chauffeur))
-    
-  }, [data]);
+const TableChauffeur = ({data,getv}) => {
+
   return (
     <table className="w-full w-full">
       <thead >
@@ -24,8 +17,8 @@ const TableChauffeur = () => {
       </thead>
       <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
             
-        {data.map((row, index) => (
-          <RowChauffeur key={row._id} id={row._id} nom={row.nom_chauffeur} prenom ={row.prenom_chauffeur} email={row.email_chauffeur} type={row.id_vehicule.nom_vehicule}/>   
+      {data?.map((row, index) => (
+          <RowChauffeur getv={getv} key={row._id} id={row._id} nom={row.nom_chauffeur} prenom ={row.prenom_chauffeur} email={row.email_chauffeur} vehicule={row.id_vehicule.nom_vehicule} type={row.id_vehicule._id}/>   
         ))}
       </tbody>
     </table>

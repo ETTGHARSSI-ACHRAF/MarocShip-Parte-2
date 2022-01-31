@@ -3,12 +3,9 @@ import { Dashbord } from '../components/Dashbord';
 
 const DashbordManager = () => {
   return (
-    <div>
-    <Dashbord/>
-      <div className="h-full md:ml-64">
+    <div className="h-full md:ml-64">
             <h1>dashbord</h1>
-      </div>
-      </div>
+    </div>
   );
 };
 

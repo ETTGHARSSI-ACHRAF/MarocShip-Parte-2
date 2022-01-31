@@ -1,16 +1,9 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
 import RowResponsable from './RowResponsable';
+import React from 'react';
 
+export const TableResponsable = ({data,getv}) => {
 
-export const TableResponsable = () => {
-
-  const[data,seteData]=useState([]);
-  useEffect(async () => {
-   await axios.get('http://localhost:5000/responsableLivraisonApi')
-    .then((res)=>seteData(res.data.responsablesLivraison))
-    
-  }, [data]);
+  
   return (
     <table className="w-full w-full">
       <thead >
@@ -22,9 +15,9 @@ export const TableResponsable = () => {
         </tr>
       </thead>
       <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">        
-        {data.map((row, index) => (
+        {data?.map((row, index) => (
           
-           <RowResponsable key={row._id} id={row._id} nom={row.nom_responsable_livraison} prenom ={row.prenom_responsable_livraison} email={row.email_responsable_livraison}/>
+           <RowResponsable getv={getv} key={row._id} id={row._id} nom={row.nom_responsable_livraison} prenom ={row.prenom_responsable_livraison} email={row.email_responsable_livraison}/>
         ))}
       </tbody>
     </table>

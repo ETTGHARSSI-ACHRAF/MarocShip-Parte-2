@@ -1,34 +1,28 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import {  FaUserPlus} from 'react-icons/fa';
-const AddChauffeur = ({getv}) => {
-    const [type , setType] = useState('Type')
-    const[data,seteData]=useState([]);
+
+const AddManager = ({getM}) => {
+  const [cookies, setCookie] = useCookies();
     const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
   const [email, setEmail] = useState('');
-    const getd = async () =>{
-    await axios.get('http://localhost:5000/vehiculeApi')
-     .then((res)=>seteData(res.data.vehicules))
-     .catch(err=>(console.log(err)))
-   }
-   useEffect( () => {
-    getd();
-   }, []);
-
-   const add = () =>{
-    axios.post('http://localhost:5000/chauffeurApi',{
-      "nom_chauffeur": nom,
-      "prenom_chauffeur": prenom,
-      "email_chauffeur": email,
-        "id_vehicule": type
+  const add = () =>{
+    axios.post('http://localhost:5000/managerApi',{
+      "nom_manager":nom,
+      "prenom_manager":prenom,
+      "email_manager":email
     
+    },{
+      headers: {
+        'Authorization': `Basic ${cookies.token}` 
+      }
     })
-    getv();
-    
+    getM();
   }
   return (
-<div className=" w-full grid grid-cols-1 gap-4 place-content-center h-48">
+    <div className=" w-full grid grid-cols-1 gap-4 place-content-center h-48">
       <div className="flex flex-wrap  ml-4">
         <div className="w-full md:w-1/5 px-3">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -66,19 +60,8 @@ const AddChauffeur = ({getv}) => {
             required
           />
         </div>
-        <div className="w-full md:w-1/5 px-3">
-          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-            Vehicule
-          </label>
-          <select value={type} onChange={(e) => setType(e.target.value)} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option value={'type'} >Type</option>
-          {data.map((row, index) => (
-          <option key={index} value={row._id}>{row.nom_vehicule}</option>
-          ))} 
-        </select>
-        </div>
         <div className="w-full md:w-1/5 px-3 mt-6">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-20 rounded " onClick={(e)=>add()}>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-20 rounded " onClick={()=>add()}>
            <FaUserPlus/>
           </button>
         </div>
@@ -87,4 +70,4 @@ const AddChauffeur = ({getv}) => {
   );
 };
 
-export default AddChauffeur;
+export default AddManager;

@@ -21,6 +21,7 @@ const RowResponsable = (props) => {
     }
     const drop = (id) =>{
       axios.delete(`http://localhost:5000/responsableLivraisonApi/${id}`)
+      props.getv();
     }
     const update = (id) =>{
       axios.patch(`http://localhost:5000/responsableLivraisonApi/${id}`,{
@@ -30,7 +31,7 @@ const RowResponsable = (props) => {
     })
         setShow(true);
         setHiden(false);
-  
+        props.getv();
     }
   
     return (

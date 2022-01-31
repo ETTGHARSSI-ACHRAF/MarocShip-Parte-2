@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaSave, FaUserEdit, FaUserTimes } from 'react-icons/fa';
 import { AiFillCloseCircle } from "react-icons/ai";
 import axios from 'axios';
 
 const RowChauffeur = (props) => {
-    const [type , setType] = useState(props.id_vehicule)
+    const [type , setType] = useState(props.type)
     const [nom, setNom] = useState(props.nom);
     const [prenom, setPrenom] = useState(props.prenom);
     const [email, setEmail] = useState(props.email);
     const [show, setShow] = useState(true);
     const [hiden, setHiden] = useState(false);
+    
+    const[data,seteData]=useState([]);
+   const getv = async () =>{
+   await axios.get('http://localhost:5000/vehiculeApi')
+    .then((res)=>seteData(res.data.vehicules))
+    .catch(err=>(console.log(err)))
+  }
+  useEffect( () => {
+   getv();
+  }, []);
+    
     const showInput = (e) => {
       setShow(false);
       setHiden(true);
@@ -28,11 +39,11 @@ const RowChauffeur = (props) => {
         })
         setShow(true);
         setHiden(false);
-  
+        props.getv();
     }
     const drop = (id) =>{
-      console.log(id);
       axios.delete(`http://localhost:5000/chauffeurApi/${id}`)
+      props.getv();
     }
     return (
       <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
@@ -86,15 +97,15 @@ const RowChauffeur = (props) => {
       
       <td className="px-2 py-3 text-sm w-1/5">
         {show &&
-          <label id={`labelEmail`}>{props.type}</label>
+          <label id={`labelEmail`}>{props.vehicule}</label>
   
         }
         {hiden &&
-          <select  onChange={(e) => setType(e.target.value)} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option value={'type'} >Type</option>
-          <option value={'voiture'}>voiture</option>
-          <option value={'petit camion'}>petit camion</option>
-          <option value={'grand camion'}>grand camion</option>
+          <select defaultValue={type}  onChange={(e) => setType(e.target.value)} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+          <option value={type} >{props.vehicule}</option>
+          {data.map((row, index) => (
+          <option key={index} value={row._id}>{row.nom_vehicule}</option>
+          ))} 
         </select>
         }
       </td>

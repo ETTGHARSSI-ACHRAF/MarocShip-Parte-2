@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import {  FaUserPlus} from 'react-icons/fa';
 
-const AddResponsable = () => {
+const AddResponsable = ({getv}) => {
  
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
@@ -14,6 +14,7 @@ const AddResponsable = () => {
         "email_responsable_livraison":email
     
     })
+    getv();
   }
   return (
     <div className=" w-full grid grid-cols-1 gap-4 place-content-center h-48">

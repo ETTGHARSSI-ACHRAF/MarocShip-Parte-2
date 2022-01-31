@@ -6,8 +6,8 @@ import TableVehicule from '../components/TableVehicule';
 
 const Vehicules = () => {
   const[data,seteData]=useState([]);
-   const getv = () =>{
-    axios.get('http://localhost:5000/vehiculeApi')
+   const getv = async () =>{
+   await axios.get('http://localhost:5000/vehiculeApi')
     .then((res)=>seteData(res.data.vehicules))
     .catch(err=>(console.log(err)))
   }
@@ -15,13 +15,9 @@ const Vehicules = () => {
    getv();
   }, []);
   return (
-    <div>
-      <Dashbord/>
-    
     <div className="h-full md:ml-64">
     <AddVehicule seteData={seteData} getv={getv}/>
     <TableVehicule getv={getv} data={data}/>
-  </div>
   </div>
   );
 };

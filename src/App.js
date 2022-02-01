@@ -9,6 +9,8 @@ import { useCookies } from "react-cookie";
 import Login from "./pages/Login";
 import { Dashbord } from "./components/Dashbord";
 import DashbordAdmin from "./pages/DashbordAdmin";
+import Livraison from "./pages/Livraison";
+import DashbordResponsable from "./pages/DashbordResponsable";
 
 function App() {
   const [cookies, setCookie] = useCookies();
@@ -19,14 +21,8 @@ function App() {
         <Routes>
           <Route path="loginManager" element={<Login role="Manager" />}></Route>
           <Route path="loginAdmin" element={<Login role="Admin" />}></Route>
-          <Route
-            path="loginChauffeur"
-            element={<Login role="Chauffeur" />}
-          ></Route>
-          <Route
-            path="loginResponsable"
-            element={<Login role="Responsable" />}
-          ></Route>
+          <Route path="loginChauffeur" element={<Login role="Chauffeur" />}></Route>
+          <Route path="loginResponsable"element={<Login role="Responsable" />}></Route>
         </Routes>
       </Router>
       {cookies.role === "manager" && (
@@ -47,6 +43,23 @@ function App() {
             <Route path="admin" element={<DashbordAdmin/>}></Route>
               <Route path="managers" element={<Managers/>}></Route>
           </Routes>
+        </Router>
+      )}
+      {cookies.role === "chauffeur" && (
+        <Router>
+          <Dashbord role='chauffeur'/>
+          
+        </Router>
+      )}
+      {cookies.role === "ResponsableLivraison" && (
+        <Router>
+          <Dashbord role='responsable'/>
+          <Routes>
+            <Route path="responsable" element={<DashbordResponsable/>}></Route>
+            <Route path="livraisons" element={<Livraison/>}></Route>
+          </Routes>
+          
+          
         </Router>
       )}
     </div>

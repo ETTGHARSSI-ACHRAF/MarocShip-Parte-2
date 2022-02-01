@@ -1,16 +1,17 @@
 import React from 'react';
-import {FaHome, FaUserFriends } from 'react-icons/fa';
+import {FaHome, FaUserFriends,FaCarAlt } from 'react-icons/fa';
 import { AiFillCar, AiOutlineLogout } from "react-icons/ai";
-import {  Link, NavLink } from "react-router-dom";
+import {  Link,useNavigate, NavLink } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import { Button } from '@material-tailwind/react';
 export const Dashbord = ({role}) => {
   const [cookies, setCookie, removeCookie] = useCookies();
-  
+  const navigate = useNavigate();
   const  logout = () =>{
+    
     removeCookie('token');
     removeCookie('role');
-    window.location=`/`;
+    navigate('/');
   }
 
   return (
@@ -78,7 +79,7 @@ export const Dashbord = ({role}) => {
           </ul>
         }
          {
-          role === 'reponsable' &&
+          role === 'responsable' &&
           <ul className="flex flex-col py-4 space-y-1">
             <li>
               <NavLink  to="/responsable" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
@@ -102,7 +103,7 @@ export const Dashbord = ({role}) => {
           role === 'chauffeur' &&
           <ul className="flex flex-col py-4 space-y-1">
             <li>
-              <NavLink  to="/chauffeur" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+              <NavLink  to="#" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
                 <span className="inline-flex justify-center items-center ml-4">
                 <FaHome/>
                 </span>
@@ -110,18 +111,20 @@ export const Dashbord = ({role}) => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/new livraisons" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+              <NavLink to="/new_livraisons" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
                 <span className="inline-flex justify-center items-center ml-4">
                 <FaUserFriends/>
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">Responsables</span>
+                <span className="ml-2 text-sm tracking-wide truncate">New Livraison</span>
               </NavLink>
             </li>
           </ul>
         }
+
           <ul className='mb-1'>
           <li>
-              <Button className=" relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6" onClick={(e)=>logout()}>
+          
+              <Button className=" relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6" onClick={() => logout()}>
                 <span className="inline-flex justify-center items-center ml-4">
                 <AiOutlineLogout/>
                 </span>

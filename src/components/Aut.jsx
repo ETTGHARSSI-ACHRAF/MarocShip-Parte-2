@@ -28,12 +28,16 @@ const Aut = ({role}) => {
       setApi('http://localhost:5000/managerApi/login');
     }else if (role === 'Admin'){
       setApi('http://localhost:5000/adminApi/login');
+    }else if (role === 'Responsable'){
+      setApi('http://localhost:5000/responsableLivraisonApi/login');
+    }else if (role === 'Chauffeur'){
+      setApi('http://localhost:5000/chauffeurApi/login');
     }
     
   },[]);
   
     return (
-        <div className="bg-no-repeat bg-cover bg-center relative back"><div className="absolute bg-gradient-to-b from-blue-500 to-blue-400 opacity-75 inset-0 z-0"></div>
+        <div className="bg-no-repeat bg-cover bg-center relative back"><div className=""></div>
       <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
           <div className="flex-col flex  self-center p-10 sm:max-w-5xl xl:max-w-2xl  z-10">
             <div className="self-start hidden lg:flex flex-col  text-white">
